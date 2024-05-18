@@ -9,7 +9,7 @@ const addBookHandler = (request,h) =>{
     if(!name){
         const response = h.response({
             status: "fail",
-            message: "Gagal menambahkan Buku. Mohon isi nama buku"
+            message: "Gagal menambahkan buku. Mohon isi nama buku"
         });
         response.code(400);
         return response;
@@ -51,7 +51,7 @@ const addBookHandler = (request,h) =>{
     if(isSuccess){
         const response = h.response({
             status: "success",
-            message: "Buku berhasil Ditambahkan",
+            message: "Buku berhasil ditambahkan",
             data: {
                 bookId: id,
             },
@@ -107,7 +107,7 @@ const getAllBooksHandler = (request,h) => {
 };
 
 const getBookByIdHandler = (request,h) => {
-    const { bookid } = request.params;
+    const bookid = request.params.id;
     const book = books.filter((n) => n.id === bookid)[0];
 
     if(book){
@@ -122,8 +122,8 @@ const getBookByIdHandler = (request,h) => {
     };
 
     const response = h.response({
-        status: 'fail',
-        message: 'Buku tidak ditemukan'
+        status: "fail",
+        message: "Buku tidak ditemukan",
     });
     response.code(404);
     return response;
@@ -131,7 +131,7 @@ const getBookByIdHandler = (request,h) => {
 }
 
 const editBookByIdHandler = (request,h) => {
-    const { bookId } = request.params;
+    const bookId= request.params.id;
     const {
         name, year, author, summary, publisher, pageCount, readPage, reading,
     } = request.payload;
@@ -141,7 +141,7 @@ const editBookByIdHandler = (request,h) => {
         if(!name){
             const response = h.response({
                 status: "fail",
-                message: "Gagal memperbarui buku, Mohon isi nama buku"
+                message: "Gagal memperbarui buku. Mohon isi nama buku"
             })
             response.code(400);
             return response;
@@ -157,7 +157,7 @@ const editBookByIdHandler = (request,h) => {
         };
 
         const finished = (pageCount === readPage);
-        const updatedAt = new Date().toISOString;
+        const updatedAt = new Date().toISOString();
 
         books[index] = {
             ...books[index], name, year, author,
